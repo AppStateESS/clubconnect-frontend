@@ -4,5 +4,7 @@ angular.module('ClubConnectApp')
   .directive('clubDirectory', () ->
     scope:
       clubs: "=clubs"
-    template: '<ul class="nav nav-tabs nav-stacked"><li ng-repeat="club in clubs"><a href="javascript:void(0)">{{club.fullname}} <span ng-show="club.electionTag" class="label label-success">{{club.electionTag}}</span> <span ng-repeat="tag in club.tags" class="label">{{tag}}</span></a></li></ul>'
+      tags: "=tags"
+      search: "=search"
+    template: '<ul class="nav nav-tabs nav-stacked"><li ng-repeat="club in clubs | SelectedTagsFilter:tags | filter:search"><a href="javascript:void(0)">{{club.fullname}} <span ng-repeat="tag in club.tags" ng-class="{{ tag == club.electionTag && \'label-success\' || \'\' }}" class="label">{{tag}}</span></a></li></ul>'
   )

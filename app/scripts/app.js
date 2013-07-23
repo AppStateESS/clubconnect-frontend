@@ -3,16 +3,29 @@
 angular.module('clubconnectApp', [])
   .config(function ($routeProvider) {
     $routeProvider
-
+      // Default
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
+
+      // Perspectives
       .when('/clubs', {
-        templateUrl: 'views/clubs.html',
+        templateUrl: 'views/clubdirectory.html',
         controller: 'ClubDirectoryCtrl'
       })
-      .when
+      
+      // Directives
+      .when('/dirdemo/tagselect', {
+        templateUrl: 'views/directive-tagselect.html',
+        controller: 'DirectiveDemoTagSelectCtrl'
+      })
+      .when('/dirdemo/clubdirectory', {
+        templateUrl: 'views/directive-clubdirectory.html',
+        controller: 'DirectiveDemoClubDirectoryCtrl'
+      })
+
+      // Otherwise....
       .otherwise({
         redirectTo: '/'
       });

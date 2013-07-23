@@ -9,10 +9,10 @@ files = [
   JASMINE_ADAPTER,
   'app/bower_components/angular/angular.js',
   'app/bower_components/angular-mocks/angular-mocks.js',
-  'app/scripts/*.js',
-  'app/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js'
+  'app/scripts/*.coffee',
+  'app/scripts/**/*.coffee',
+  'test/mock/**/*.coffee',
+  'test/spec/**/*.coffee'
 ];
 
 // list of files to exclude

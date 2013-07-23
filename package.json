@@ -1,9 +1,7 @@
 {
   "name": "clubconnect",
   "version": "0.0.0",
-  "dependencies": {
-    "grunt-karma": "~0.4.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",

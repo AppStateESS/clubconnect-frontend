@@ -1,7 +1,9 @@
 <div class="row">
-  <div class="span12">
-    <h1>TagSelect</h1>
+  <div class="span2">
     <div data-tag-select data-tags="tags" data-ul-class="nav nav-pills nav-stacked" data-li-selected-class="active"></div>
+  </div>
+  <div class="span10">
+    <h1>TagSelect</h1>
     <p>Select some tags above, and the selected set will show up below:</p>
     <ul>
       <li ng-repeat="tag in tags | filter:isActive">{{tag.title}}</li>

@@ -4,10 +4,8 @@ angular.module('ClubConnectApp')
   .filter 'SelectedTagsFilter', () ->
     (input, tags) ->
 
-      console.log(input)
-
       # Get array of tags that are selected
-      selTags = _.pluck(_.filter(tags, (tag) -> tag.selected), 'title')
+      selTags = _.pluck(_.filter(tags, (tag) -> tag.selected), 'name')
 
       # If no tags are selected, let everything through
       return input if not selTags.length

@@ -1,0 +1,37 @@
+<form id="clubregistration">
+  <h1>About Your Organization</h1>
+  <label for="fullname">Full Name</label>
+  <input type="text" id="fullname" ng-model="registration.fullname">
+  <p class="muted">Provide the full name of your organization with no acronyms or abbreviations.</p>
+  <label for="shortname">Short Name</label>
+  <input type="text" id="shortname" ng-model="registration.shortname">
+  <p class="muted">If your organization is better known by an acronym, enter it here.</p>
+  <label for="address">Address</label>
+  <input type="text" id="address" ng-model="registration.address">
+  <p class="muted">Enter either your organization's ASU PO box or your advisor's departmental address.</p>
+  <label for="bank">Bank</label>
+  <input type="text" id="bank" ng-model="registration.bank">
+  <p class="muted">If your organization has a bank account, please list the name of your bank.  Please <em>do not</em> provide your account number.</p>
+  <label for="ein">Employer Identification Number (EIN)</label>
+  <input type="text" id="ein" ng-model="registration.ein" ng-disabled="!registration.bank">
+  <p class="muted">If your organization has a bank account, specify your Employer Identification Number.</p>
+
+  <h1>Public Profile</h1>
+  <label for="purpose">Purpose</label>
+  <textarea id="purpose" ng-model="registration.purpose"></textarea>
+  <p class="muted">Enter the reason your organization exists.  This is a section of your organization's constitution and any changes will require a meeting with CSIL.</p>
+  <label for="meetings">Public Meeting Schedule</label>
+  <input type="text" id="meetings" ng-model="registration.meetings">
+  <p class="muted">Enter the meeting times for your organization.</p>
+  <label for="location">Public Meeting Location</label>
+  <input type="text" id="location" ng-model="registration.location">
+  <p class="muted">Where does your organization usually meet?</p>
+
+  <h1>Categorization</h1>
+  <p>To help potential members find your organization, please select one or more categories that appropriately desctibe your organization.</p>
+  <div data-tag-select data-tags="searchTags" data-ul-class="nav nav-pills" data-li-selected-class="active"></div>
+  <p>For election purposes, please select the category that best describes your organization from those listed below.</p>
+  <div data-tag-select radio data-tags="electionTags" data-ul-class="nav nav-pills" data-li-selected-class="active"></div>
+
+  <h1>People</h1>
+</form>

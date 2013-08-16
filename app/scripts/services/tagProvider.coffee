@@ -3,11 +3,13 @@
 angular.module('ClubConnectApp')
   .provider 'tagProvider', () ->
     searchTags = [
-        name: "Academic"
+        name: "Academics"
       ,
-        name: "Athletic"
+        name: "Athletics"
       ,
         name: "Business"
+      ,
+        name: "Dance"
       ,
         name: "Education"
       ,
@@ -23,9 +25,9 @@ angular.module('ClubConnectApp')
       ,
         name: "Music"
       ,
-        name: "Political"
+        name: "Politics"
       ,
-        name: "Religious"
+        name: "Religion"
       ,
         name: "Residence Life"
       ,
@@ -54,11 +56,39 @@ angular.module('ClubConnectApp')
         name: 'Special Interest'
     ]
 
+    monthTags = [
+        name: 'January'
+      ,
+        name: 'February'
+      ,
+        name: 'March'
+      ,
+        name: 'April'
+      ,
+        name: 'May'
+      ,
+        name: 'June'
+      ,
+        name: 'July'
+      ,
+        name: 'August'
+      ,
+        name: 'September'
+      ,
+        name: 'October'
+      ,
+        name: 'November'
+      ,
+        name: 'December'
+    ]
+
     TagProvider = () -> {
       getSearchTags: () ->
         searchTags.slice(0)
       getElectionTags: () ->
         electionTags.slice(0)
+      getMonthTags: () ->
+        monthTags.slice(0)
     }
 
     # Method for instantiating

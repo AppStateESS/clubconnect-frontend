@@ -4,9 +4,12 @@ angular.module('ClubConnectApp', ['ui'])
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
       # Default
+      #.when '/',
+      #  templateUrl: 'views/main.html'
+      #  controller: 'MainCtrl'
       .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
+        templateUrl: 'views/clubregistration.html'
+        controller: 'ClubRegistrationCtrl'
 
       # Perspectives
       .when '/clubs',

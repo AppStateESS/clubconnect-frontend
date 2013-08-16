@@ -27,16 +27,20 @@
 
     <div class="container">
       <div class="row">
-        <div class="span12">
-          <div class="hero-unit">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="jumbotron">
             <h1><a href="#">ClubConnect 3.0.0-pre-alpha</a></h1>
             <p>... is now open source! But we're porting an old PHP application to fancy new ways of thinking so please pardon the mess.</p>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div ng-view=""></div>
+        </div>
+      </div>
     </div>
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -51,24 +55,23 @@
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/people.js"></script>
+    <script src="scripts/directives/tagSelect.js"></script>
+    <script src="scripts/controllers/DirectiveDemoTagSelect.js"></script>
+    <script src="scripts/directives/clubDirectory.js"></script>
+    <script src="scripts/controllers/DirectiveDemoClubDirectory.js"></script>
+    <script src="scripts/services/clubProvider.js"></script>
+    <script src="scripts/filters/SelectedTagsFilter.js"></script>
+    <script src="scripts/controllers/ClubDirectory.js"></script>
+    <script src="scripts/controllers/ClubRegistration.js"></script>
+    <script src="scripts/services/tagProvider.js"></script>
+    <script src="scripts/controllers/DirectiveDemoPersonSelector.js"></script>
+    <script src="scripts/services/personProvider.js"></script>
+    <script src="scripts/directives/personSelector.js"></script>
+    <script src="scripts/directives/horizFormEl.js"></script>
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/jquery/jquery.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
@@ -80,18 +83,6 @@
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="bower_components/angular-underscore/angular-underscore.js"></script>
         <script src="bower_components/angular-ui/build/angular-ui.js"></script>
-        <script src="scripts/directives/tagSelect.js"></script>
-        <script src="scripts/controllers/DirectiveDemoTagSelect.js"></script>
-        <script src="scripts/directives/clubDirectory.js"></script>
-        <script src="scripts/controllers/DirectiveDemoClubDirectory.js"></script>
-        <script src="scripts/services/clubProvider.js"></script>
-        <script src="scripts/filters/SelectedTagsFilter.js"></script>
-        <script src="scripts/controllers/ClubDirectory.js"></script>
-        <script src="scripts/controllers/ClubRegistration.js"></script>
-        <script src="scripts/services/tagProvider.js"></script>
-        <script src="scripts/controllers/DirectiveDemoPersonSelector.js"></script>
-        <script src="scripts/services/personProvider.js"></script>
-        <script src="scripts/directives/personSelector.js"></script>
         <!-- endbuild -->
 </body>
 </html>

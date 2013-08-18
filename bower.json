@@ -12,7 +12,8 @@
     "angular-bootstrap": "~0.4.0",
     "angular-underscore": "latest",
     "angular-ui": "~0.4.0",
-    "bootstrap": "~3.0.0-rc1"
+    "bootstrap": "~3.0.0-rc1",
+    "ckeditor-releases": "git://github.com/ckeditor/ckeditor-releases.git#c9332c792eea936d61a475b063080dee3216178a"
   },
   "devDependencies": {
     "angular-mocks": "~1.0.7",

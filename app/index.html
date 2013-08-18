@@ -14,6 +14,10 @@
         <!-- build:css({.tmp,app}) styles/main.css -->
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
+
+    <script type="text/javascript">
+      CKEDITOR_BASEPATH = '/bower_components/ckeditor-releases/';
+    </script>
 </head>
   <body ng-app="ClubConnectApp">
     <!--[if lt IE 7]>
@@ -42,13 +46,13 @@
     </div>
     <!-- Add your site or application content here -->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.
     <script>
       var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
       (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src='//www.google-analytics.com/ga.js';
       s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+    </script> -->
 
     <script src="bower_components/angular/angular.js"></script>
 
@@ -68,14 +72,16 @@
     <script src="scripts/services/personProvider.js"></script>
     <script src="scripts/directives/personSelector.js"></script>
     <script src="scripts/directives/horizFormEl.js"></script>
+    <script src="scripts/directives/ckeditor.js"></script>
     <!-- endbuild -->
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/jquery/jquery.js"></script>
+        <script src="bower_components/underscore/underscore.js"></script>
+        <script src="bower_components/ckeditor-releases/ckeditor.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
-        <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>

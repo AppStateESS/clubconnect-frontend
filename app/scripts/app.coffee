@@ -1,15 +1,12 @@
 'use strict'
 
-angular.module('ClubConnectApp', ['ui'])
+angular.module('ClubConnectApp', ['ui.bootstrap'])
   .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
       # Default
-      #.when '/',
-      #  templateUrl: 'views/main.html'
-      #  controller: 'MainCtrl'
       .when '/',
-        templateUrl: 'views/clubregistration.html'
-        controller: 'ClubRegistrationCtrl'
+        templateUrl: 'views/main.html'
+        controller: 'MainCtrl'
 
       # Perspectives
       .when '/clubs',

@@ -2,6 +2,7 @@
 
 angular.module('ClubConnectApp')
   .controller 'DirectiveDemoTagSelectCtrl', ['$scope', 'tagProvider', ($scope, tagProvider) ->
-    $scope.tags = tagProvider.getSearchTags()
+    $scope.tags = tagProvider.getElectionTags()
     $scope.isActive = (item) -> !!item.selected
+    $scope.radio = false
   ]

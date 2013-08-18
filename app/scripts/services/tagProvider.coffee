@@ -25,6 +25,8 @@ angular.module('ClubConnectApp')
       ,
         name: "Music"
       ,
+        name: "Multicultural"
+      ,
         name: "Politics"
       ,
         name: "Religion"

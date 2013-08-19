@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('ClubConnectApp')
-  .provider 'personProvider', () ->
+  .service 'personService', ['$http', ($http) ->
     people = window.people
 
     retLimit = 1000
@@ -52,3 +52,4 @@ angular.module('ClubConnectApp')
       new PersonProvider()
 
     undefined
+  ]

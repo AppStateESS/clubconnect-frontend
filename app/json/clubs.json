@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "fullname": "Appalachian Linux Users Group",
         "shortname": "ALUG",
         "active": true,
@@ -7,6 +8,7 @@
         "tags": ["Technology"]
     },
     {
+        "id": 2,
         "fullname": "Anthropology Club",
         "shortname": null,
         "active": true,
@@ -14,6 +16,7 @@
         "tags": ["Academic"]
     },
     {
+        "id": 3,
         "fullname": "I Phelta Thi",
         "shortname": null,
         "active": true,
@@ -21,6 +24,7 @@
         "tags": ["Fraternity", "Service"]
     },
     {
+        "id": 4,
         "fullname": "Epsilon Zeta Delta Zeta",
         "shortname": "EZDZ",
         "active": true,
@@ -28,6 +32,7 @@
         "tags": ["Sorority", "Service"]
     },
     {
+        "id": 5,
         "fullname": "Phi Mu Alpha Symfonia",
         "shortname": "PMAS",
         "active": true,

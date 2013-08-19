@@ -1,39 +1,43 @@
 <form id="clubregistration" class="form-horizontal">
 
-  <h1>Organization History</h1>
+  <div data-ng-controller="ClubRegistrationHistoryCtrl">
 
-  <div data-ng-hide="showRestOfForm">
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
-      <p>Has your organization existed on campus before this year?</p>
-      <div data-tag-select data-radio="true" data-tags="rereg" cols="6"></div>
-    </div>
-  </div>
-  <div data-ng-show="rereg[0].selected">
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
-      <p data-ng-hide="showRestOfForm">Please search for your club to continue registration.</p>
-      <p data-ng-show="showRestOfForm">You are re-registering an existing organization named</p>
-      <div class="input-group">
-        <input type="text" id="oldname" class="form-control" placeholder="Type here to search" ng-model="oldname" disabled="{{showRestOfForm}}" data-typeahead="club.fullname for club in clubs | filter:$viewValue | limitTo:10">
-        <span class="input-group-btn" ng-hide="showRestOfForm">
-          <a href="javascript:void(0)" class="btn btn-primary" ng-click="confirmHistory(oldname)">Confirm</a>
-        </span>
-        <span class="input-group-btn" ng-show="showRestOfForm">
-          <a href="javascript:void(0)" class="btn btn-success" ng-click="unconfirmHistory()">Undo</a>
+    <h1>Organization History</h1>
+
+    <div data-ng-hide="regstate.history">
+      <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
+        <p>Has your organization existed on campus before this year?</p>
+        <div data-tag-select data-radio="true" data-tags="history.rereg" data-ng-model="history.hasHistory" data-cols="6"></div>
       </div>
     </div>
-  </div>
-  <div data-ng-show="rereg[1].selected">
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
-      <p>You are registering a new organization.  Please be aware that you should have already met with Club Council before filling out this form.</p>
-      <span ng-hide="showRestOfForm">
-        <a href="javascript:void(0)" class="btn btn-primary" ng-click="confirmNoHistory()">Confirm</a>
-      </span>
-      <span ng-show="showRestOfForm">
-        <a href="javascript:void(0)" class="btn btn-success" ng-click="unconfirmNoHistory()">Undo</a>
+    <div data-ng-show="history.hasHistory == 'Yes'">
+      <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
+        <p data-ng-hide="regstate.history">Please search for your club to continue registration.</p>
+        <p data-ng-show="regstate.history">You are re-registering an existing organization named</p>
+        <div class="input-group">
+          <input type="text" id="oldname" class="form-control" placeholder="Type here to search" ng-model="history.search" disabled="{{regstate.history && 'disabled' || undefined}}" data-typeahead="club.fullname for club in sdrapi.clubSearch(club.fullname)">
+          <span class="input-group-btn" ng-hide="regstate.history">
+            <a href="javascript:void(0)" class="btn btn-primary" ng-click="history.confirm()">Confirm</a>
+          </span>
+          <span class="input-group-btn" ng-show="regstate.history">
+            <a href="javascript:void(0)" class="btn btn-success" ng-click="history.unconfirm()">Undo</a>
+        </div>
+      </div>
     </div>
+    <div data-ng-show="history.hasHistory == 'No'">
+      <div data-horiz-form-el data-label-cols="2" data-control-cols="6">
+        <p>You are registering a new organization.  Please be aware that you should have already met with Club Council before filling out this form.</p>
+        <span ng-hide="regstate.history">
+          <a href="javascript:void(0)" class="btn btn-primary" ng-click="history.confirm()">Confirm</a>
+        </span>
+        <span ng-show="regstate.history">
+          <a href="javascript:void(0)" class="btn btn-success" ng-click="history.unconfirm()">Undo</a>
+      </div>
+    </div>
+
   </div>
 
-  <div ng-show="showRestOfForm">
+  <div ng-show="regstate.history">
 
     <h1>About Your Organization</h1>
 
@@ -41,7 +45,7 @@
       <input type="text" id="fullname" class="form-control" placeholder="Full Name of Organization" ng-model="registration.fullname" data-typeahead="club.fullname for club in clubs | filter:$viewValue | limitTo:10">
     </div>
 
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="1" label="Short Name" elementId="shortname" data-help="Many clubs already have a well-known acronym; please enter it or make one up.">
+    <div data-horiz-form-el data-label-cols="2" data-control-cols="2" label="Short Name" elementId="shortname" data-help="Many clubs already have a well-known acronym; please enter it or make one up.">
       <input type="text" id="shortname" class="form-control" placeholder="ABC" ng-model="registration.shortname" data-typeahead="club.fullname for club in clubs | filter:$viewValue | limitTo:10">
     </div>
 
@@ -54,7 +58,7 @@
     </div>
 
     <div data-horiz-form-el data-label-cols="2" data-control-cols="4" label="EIN" elementId="ein" data-help="Leave blank if your organization does not have a bank account.">
-      <input type="text" id="ein" class="form-control" placeholder="Employer Identification Number" ng-model="registration.ein">
+      <input type="text" id="ein" class="form-control" placeholder="55-55555555" ng-model="registration.ein">
     </div>
 
     <h1>Categorization</h1>
@@ -68,7 +72,7 @@
           </div>
           <div class="panel-body">
             <p class="help-block">Select the <em>one</em> category that best fits your organization for SGA Election purposes.</p>
-            <div data-tag-select data-radio="true" data-tags="electionTags"></div>
+            <div data-tag-select data-radio="true" data-tags="sdrdata.electionTags" data-ng-model="registration.sgaelection"></div>
           </div>
         </div>
       </div>
@@ -80,7 +84,7 @@
           </div>
           <div class="panel-body">
             <p class="help-block">Select <em>one or more</em> categories that describe your organization.</p>
-            <div data-tag-select data-tags="searchTags" data-cols="3"></div>
+            <div data-tag-select data-tags="sdrdata.searchTags" data-cols="3" data-ng-model="registration.searchtags"></div>
           </div>
         </div>
       </div>
@@ -157,7 +161,7 @@
           </div>
           <div class="panel-body">
             <p class="help-block">Select <em>one or more</em> months in which your organization holds officer elections.</p>
-            <div data-tag-select data-tags="monthTags" data-cols="3"></div>
+            <div data-tag-select data-tags="sdrdata.monthTags" data-cols="3" data-ng-model="registration.elections"></div>
           </div>
         </div>
       </div>
@@ -165,5 +169,6 @@
     <h1>Review and Submit</h1>
 
   </div>
+    {{registration}}
     
 </form>

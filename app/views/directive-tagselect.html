@@ -1,13 +1,16 @@
 <div class="row">
   <div class="span2">
-    <div data-tag-select data-tags="tags" data-cols="3" data-radio="radio"></div>
+    <div data-tag-select data-tags="tsdemo.tags" data-cols="3" data-radio="tsdemo.radio" data-ng-model="tsdemo.selected"></div>
   </div>
   <div class="span10">
     <h1>TagSelect</h1>
-    <label><input type="checkbox" ng-model="radio"> Radio Button Mode</label>
+    <label><input type="checkbox" data-ng-model="tsdemo.radio"> Radio Button Mode</label>
     <p>Select some tags above, and the selected set will show up below:</p>
-    <ul>
-      <li ng-repeat="tag in tags | filter:isActive">{{tag.name}}</li>
+    <ul data-ng-hide="tsdemo.radio">
+      <li ng-repeat="tag in tsdemo.selected">{{tag}}</li>
+    </ul>
+    <ul data-ng-show="tsdemo.radio">
+      <li>{{tsdemo.selected}}</li>
     </ul>
   </div>
 </div>

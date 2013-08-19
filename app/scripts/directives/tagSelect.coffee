@@ -2,18 +2,55 @@
 
 angular.module('ClubConnectApp')
   .directive 'tagSelect', () ->
+    require: 'ngModel'
     scope:
       tags: '='
       cols: '@'
       radio: '='
+      model: '=ngModel'
     templateUrl: 'views/directives/tagSelect.html'
-    controller: ['$scope', '$attrs', ($scope, $attrs) ->
+    link: (scope, elm, attrs, ctrl) ->
+
+      scope.getVal = (tag) ->
+        if not _.isUndefined(tag.val)
+          tag.val
+        else
+          tag.name
+
+      scope.tagClicked = (tag) ->
+
+        clicked = scope.getVal(tag)
+        foundVal = ctrl.$viewValue
+
+        if scope.radio
+          if clicked == foundVal
+            foundVal = undefined
+          else
+            foundVal = clicked
+
+        else
+          foundVal = ctrl.$viewValue
+          removed = false
+          for key, val of foundVal
+            if val == clicked
+              foundVal.splice key, 1
+              removed = true
+          if not removed
+            if not foundVal
+              foundVal = []
+            foundVal.push clicked
+
+        ctrl.$setViewValue foundVal
+        scope.lastSelected = clicked
+        undefined
 
       """
         Watch scope.tags for changes.  The tagset needs to be split into columns
         if scope.cols is set.
       """
-      $scope.$watch 'tags', (input) ->
+      ctrl.$render = () ->
+        input = scope.tags
+
         if not input
           return undefined
 
@@ -21,7 +58,7 @@ angular.module('ClubConnectApp')
         len = input.length
 
         # If the client specified cols, use that, otherwise 1 column
-        if not $scope.cols or $scope.cols < 1 then numchunks = 1 else numchunks = $scope.cols
+        if not scope.cols or scope.cols < 1 then numchunks = 1 else numchunks = scope.cols
 
         # How many items per cell - total scope.tags length divided by number of columns
         ct = Math.ceil(len/numchunks)
@@ -33,38 +70,34 @@ angular.module('ClubConnectApp')
           idx += ct
           chunked.push input[lastidx..idx-1]
         
-        $scope.chunkedTags = chunked
+        scope.chunkedTags = chunked
+
         undefined
 
-      """
-        Watch scope.radio for changes.  Adjust behavior of the widget between
-        single- and multi-select.
-      """
-      $scope.$watch $attrs.radio, (radio) ->
-
-        # If single-select and anything is selected, take the most recent selection and make
-        # it the only one
-        if radio and $scope.lastSelected
-          for scopeTag in $scope.tags
-            scopeTag.selected = scopeTag.name == $scope.lastSelected.name and $scope.lastSelected.selected
-        undefined
-
-      $scope.tagClicked = (tag) ->
-
-        # Save the most recently selected tag in case mode changes to single-select in the future
-        $scope.lastSelected = tag
-
-        if $scope.radio
-
-          # If single-select, set all other tags to unselected
-          for scopeTag in $scope.tags
-            scopeTag.selected = scopeTag.name == tag.name and !tag.selected
-
+      scope.$watch 'radio', (radio) ->
+        foundVal = ctrl.$viewValue
+        if radio and scope.lastSelected
+          if _.contains foundVal, scope.lastSelected
+            foundVal = scope.lastSelected
+          else
+            foundVal = undefined
         else
-
-          # If multi-select, just flip the bit
-          tag.selected = !tag.selected
+          if foundVal
+            foundVal = [foundVal]
+        ctrl.$setViewValue foundVal
         undefined
 
-      undefined
-    ]
+      scope.isSelected = (tag) ->
+        if scope.radio
+          ctrl.$viewValue == scope.getVal(tag)
+        else
+          _.contains ctrl.$viewValue, scope.getVal(tag)
+
+      """
+        These listeners are necessary to keep our isolate scope in sync with
+        the parent scope
+      """
+      scope.$watch 'model', () ->
+        scope.$eval(attrs.ngModel + ' = model')
+      scope.$watch attrs.ngModel, (val) ->
+        scope.model = val

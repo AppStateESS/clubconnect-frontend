@@ -1,8 +1,8 @@
 <div class="row">
   <div ng-repeat="group in chunkedTags" class="col-lg-{{12 / cols}}">
     <ul class="nav nav-pills nav-stacked">
-      <li ng-repeat="tag in group" ng-class="tag.selected && 'active' || ''">
-        <a href="javascript:void(0)" ng-click="tagClicked(tag)">{{tag.name}}</a>
+      <li ng-repeat="tag in group" ng-class="isSelected(tag) && 'active' || ''">
+      <a href="javascript:void(0)" ng-click="tagClicked(tag)">{{tag.name}}</a>
       </li>
     </ul>
   </div>

@@ -3,6 +3,11 @@
 angular.module('ClubConnectApp')
   .service 'clubService', ['$http', '$q', '$filter', ($http, $q, $filter) ->
 
+    baseUrl = 'https://r6test.ess.appstate.edu/sdr173/api.php?callback=JSON_CALLBACK&type=club'
+    searchUrl = baseUrl + '&op=search&search='
+    regUrl = baseUrl + '&op=getregdata&search='
+    rolesUrl = baseUrl + '&op=getroles'
+
     getAllClubs = (callback) ->
       $http
         .get('/json/clubs.json')
@@ -10,14 +15,27 @@ angular.module('ClubConnectApp')
           callback(result)
 
     clubSearch = (search) ->
-      deferred = $q.defer()
+      $http
+        .jsonp(searchUrl + search)
+        .then (response) ->
+          $filter('limitTo') response.data, 15
 
-      getAllClubs (result) ->
-        deferred.resolve $filter('limitTo') $filter('filter')(result, search), 1
+    getRegistration = (search) ->
+      $http
+        .jsonp(regUrl + search)
+        .then (response) ->
+          response.data
 
-      return deferred.promise
+    getRoles = () ->
+      $http
+        .jsonp(rolesUrl)
+        .then (response) ->
+          response.data
 
-    @getAllClubs = getAllClubs
-    @clubSearch  = clubSearch
+    @getAllClubs     = getAllClubs
+    @clubSearch      = clubSearch
+    @getRegistration = getRegistration
+    @getRoles        = getRoles
+
     undefined
   ]

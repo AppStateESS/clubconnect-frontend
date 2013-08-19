@@ -22,16 +22,12 @@ angular.module('ClubConnectApp')
         # Club exists and has history
         if $scope.history.hasHistory == 'Yes'
 
-          # Search for an exact name match since they should have used the popup
-          history = ($scope.clubs.filter (x) -> x.fullname == $scope.history.search)[0]
-
-          # Unable to find
-          if not history
-            alert 'Could not find a club by the name ' + name + '.  Please try searching again.'
-
-          # Set the history on the Registration object
-          else
-            $scope.setHistory history
+          # Get club data from server based on exact name match
+          $scope.sdrapi.getRegistration($scope.history.search).then (result) ->
+            if result.error
+              alert result.error
+            else
+              $scope.setHistory result
 
         else
 
@@ -41,4 +37,8 @@ angular.module('ClubConnectApp')
       # Undo function for linking this club instance with an existing club record
       unconfirm: () ->
         $scope.clearHistory()
+
+    $scope.$watch 'history.hasHistory', (val) ->
+      $scope.$evalAsync () ->
+        $('#oldname').focus()
   ]

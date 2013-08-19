@@ -15,13 +15,14 @@
         <p data-ng-hide="regstate.history">Please search for your club to continue registration.</p>
         <p data-ng-show="regstate.history">You are re-registering an existing organization named</p>
         <div class="input-group">
-          <input type="text" id="oldname" class="form-control" placeholder="Type here to search" ng-model="history.search" disabled="{{regstate.history && 'disabled' || undefined}}" data-typeahead="club.fullname for club in sdrapi.clubSearch(club.fullname)">
+          <input type="text" id="oldname" class="form-control" placeholder="Type here to search" ng-model="history.search" disabled="{{regstate.history && 'disabled' || undefined}}" data-typeahead="club.fullname for club in sdrapi.clubSearch($viewValue)">
           <span class="input-group-btn" ng-hide="regstate.history">
             <a href="javascript:void(0)" class="btn btn-primary" ng-click="history.confirm()">Confirm</a>
           </span>
           <span class="input-group-btn" ng-show="regstate.history">
             <a href="javascript:void(0)" class="btn btn-success" ng-click="history.unconfirm()">Undo</a>
         </div>
+        <p class="help-block" data-ng-hide="regstate.history">Try searching for the full name as well as any acronyms.</p>
       </div>
     </div>
     <div data-ng-show="history.hasHistory == 'No'">
@@ -42,11 +43,11 @@
     <h1>About Your Organization</h1>
 
     <div data-horiz-form-el data-label-cols="2" data-control-cols="6" label="Full Name" elementId="fullname" data-help="No acronyms or abbreviations.">
-      <input type="text" id="fullname" class="form-control" placeholder="Full Name of Organization" ng-model="registration.fullname" data-typeahead="club.fullname for club in clubs | filter:$viewValue | limitTo:10">
+      <input type="text" id="fullname" class="form-control" placeholder="Full Name of Organization" ng-model="registration.fullname">
     </div>
 
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="2" label="Short Name" elementId="shortname" data-help="Many clubs already have a well-known acronym; please enter it or make one up.">
-      <input type="text" id="shortname" class="form-control" placeholder="ABC" ng-model="registration.shortname" data-typeahead="club.fullname for club in clubs | filter:$viewValue | limitTo:10">
+    <div data-horiz-form-el data-label-cols="2" data-control-cols="2" label="Short Name" elementId="shortname" data-help="Many student organizations already have a well-known acronym; please enter it or make one up.">
+      <input type="text" id="shortname" class="form-control" placeholder="ABC" ng-model="registration.shortname">
     </div>
 
     <div data-horiz-form-el data-label-cols="2" data-control-cols="4" label="Address" elementId="address" data-help="Do not use your personal ASU BOX.">
@@ -57,7 +58,7 @@
       <input type="text" id="bank" class="form-control" placeholder="Name of Bank" ng-model="registration.bank">
     </div>
 
-    <div data-horiz-form-el data-label-cols="2" data-control-cols="4" label="EIN" elementId="ein" data-help="Leave blank if your organization does not have a bank account.">
+    <div data-horiz-form-el data-label-cols="2" data-control-cols="4" label="EIN" elementId="ein" data-help="Leave blank if your organization does not have a bank account.  If your EIN has not changed since last year, do not modify this field.">
       <input type="text" id="ein" class="form-control" placeholder="55-55555555" ng-model="registration.ein">
     </div>
 
@@ -122,30 +123,44 @@
       </div>
       <div class="panel-body">
         <p>Add the current officers of your organization, including advisor.  This list must at least include president and advisor.  Don't forget to add yourself!</p>
+        <ul>
+          <li>Please ensure that the <strong>email address</strong> is accurate.  Only <tt>@appstate.edu</tt> email addresses will be accepted.</li>
+          <li>Select <strong>officer positions</strong> consistent with the wording in your organization's constitution.</li>
+          <li><strong>Administrators</strong> have access to manage your club through ClubConnect.  Indicate who should and should not have this access.  <em>Note: The President and Advisor always have access.</em></li>
+          <li><strong>Removed</strong> officers will remain shown but stricken through for your convenience.</li>
+          <li><strong>If you have not yet held elections for this year</strong>, please enter the current set of officers for your club.  You will be able to change them through ClubConnect when the election is held.</li>
+        </ul>
+
         <table class="table">
           <tr>
-            <th>Name</th>
             <th>Email</th>
-            <th>Position</th>
+            <th>Advisor / Officer Position</th>
+            <th>Administrator</th>
             <th>Actions</th>
           </tr>
-          <tr ng-repeat="officer in officers">
-            <td>{{officer.name}}</td>
-            <td>{{officer.email}}</td>
-            <td>{{officer.position}}</td>
-            <td><button class="btn btn-error"><i class="icon-minus-sign"></i> Remove</button></td>
+          <tr ng-repeat="(key, officer) in registration.officers">
+            <td ng-show="officer.removed">Removed: <strike>{{officer.email}}</strike></td>
+            <td ng-show="officer.removed"><strike>{{sdrdata.roleLookup[officer.position]}}</strike</td>
+            <td ng-show="officer.removed"></td>
+            <td ng-show="officer.removed">
+              <button type="button" class="btn btn-primary btn-sm" ng-click="sdrapi.undoRemoveOfficer(key)">Undo</button>
+            </td>
+            <td ng-hide="officer.removed"><input type="text" class="form-control" data-ng-model="officer.email" placeholder="Email Address @appstate.edu"></td>
+            <td ng-hide="officer.removed"><select class="form-control" data-ng-model="officer.position" data-ng-options="role.id as role.title for role in sdrdata.roles" placeholder="Officer Position"></select></td>
+            <td ng-hide="officer.removed || officer.position == 34 || officer.position == 53">
+              <div class="btn-group">
+                <button type="button" class="btn" ng-class="officer.admin == 1 && 'btn-primary' || 'btn-default'" ng-click="officer.admin = 1">Yes</button>
+                <button type="button" class="btn" ng-class="officer.admin == 0 && 'btn-primary' || 'btn-default'" ng-click="officer.admin = 0">No</button>
+              </div>
+            </td>
+            <td ng-show="!officer.removed && (officer.position == 34 || officer.position == 53)">
+              <button type="button" class="btn btn-primary" disabled>Yes</button>
+            </td>
+            <td ng-hide="officer.removed"><button class="btn btn-danger btn-sm" ng-click="sdrapi.removeOfficer(key)"><i class="icon-minus-sign"></i> Remove</button></td>
           </tr>
           <tr>
-            <td colspan="2">
-              <input type="text" class="form-control" ng-model="newperson.search" placeholder="Search by Banner ID or ASU Email Address.">
-            </td>
-            <td>
-              <select class="form-control" ng-model="newperson.role">
-                <option value="1">Wat</option>
-              </select>
-            </td>
-            <td>
-              <button class="btn btn-primary"><i class="icon-plus-sign"></i> Add</button>
+            <td colspan="3">
+              <button type="button" class="btn btn-success" ng-click="sdrapi.newOfficer()">Add Officer</button>
             </td>
           </tr>
         </table>
@@ -166,9 +181,11 @@
         </div>
       </div>
     </div>
+
     <h1>Review and Submit</h1>
+    <p>This Club Registration Form will be submitted to the CSIL office for approval.</p>
+    <p><button type="button" class="btn btn-primary btn-lg">Submit Club Registration Form</button></p>
 
   </div>
-    {{registration}}
     
 </form>

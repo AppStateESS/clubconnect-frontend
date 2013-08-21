@@ -1,6 +1,6 @@
 'use strict'
 
 angular.module('ClubConnectApp')
-  .controller 'DirectiveDemoClubDirectoryCtrl', ['$scope', 'clubProvider', ($scope, clubProvider) ->
-    $scope.clubs = clubProvider.getAllClubs()
+  .controller 'DirectiveDemoClubDirectoryCtrl', ['$scope', 'clubSearch', ($scope, clubSearch) ->
+    $scope.clubs = clubSearch.getAllClubs()
   ]

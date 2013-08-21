@@ -8,7 +8,7 @@ angular.module('ClubConnectApp')
       cols: '@'
       radio: '='
       model: '=ngModel'
-    templateUrl: 'views/directives/tagSelect.html'
+    template: '<div class="row"><div ng-repeat="group in chunkedTags" class="col-lg-{{12 / cols}}"><ul class="nav nav-pills nav-stacked tagselect"><li ng-repeat="tag in group" ng-class="isSelected(tag) && \'active\' || \'\'"><a href="javascript:void(0)" ng-click="tagClicked(tag)">{{tag.name}}</a></li></ul></div></div>'
     link: (scope, elm, attrs, ctrl) ->
 
       scope.getVal = (tag) ->

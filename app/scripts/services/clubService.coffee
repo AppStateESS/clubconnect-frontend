@@ -1,41 +1,44 @@
 'use strict'
 
 angular.module('ClubConnectApp')
-  .service 'clubService', ['$http', '$q', '$filter', ($http, $q, $filter) ->
+  .service 'clubService', ['$http', '$filter', 'makeSearchUrl', 'makeRegUrl', 'makeRolesUrl', 'makeRegSubmitUrl', 'errorService', ($http, $filter, makeSearchUrl, makeRegUrl, makeRolesUrl, makeRegSubmitUrl, errorService) ->
 
-    baseUrl = 'https://r6test.ess.appstate.edu/sdr173/api.php?callback=JSON_CALLBACK&type=club'
-    searchUrl = baseUrl + '&op=search&search='
-    regUrl = baseUrl + '&op=getregdata&search='
-    rolesUrl = baseUrl + '&op=getroles'
-
-    getAllClubs = (callback) ->
+    getAllClubs = () ->
       $http
-        .get('/json/clubs.json')
-        .success (result) ->
-          callback(result)
-
-    clubSearch = (search) ->
-      $http
-        .jsonp(searchUrl + search)
+        .jsonp(makeSearchUrl())
         .then (response) ->
-          $filter('limitTo') response.data, 15
+          response.data
+        , errorService.handle
 
     getRegistration = (search) ->
       $http
-        .jsonp(regUrl + search)
+        .jsonp(makeRegUrl(search))
         .then (response) ->
           response.data
+        , errorService.handle
 
     getRoles = () ->
       $http
-        .jsonp(rolesUrl)
+        .jsonp(makeRolesUrl())
         .then (response) ->
           response.data
+        , errorService.handle
 
-    @getAllClubs     = getAllClubs
-    @clubSearch      = clubSearch
+    submitReg = (data) ->
+      $http(
+        method: 'POST'
+        url: makeRegSubmitUrl()
+        data: data
+        headers:
+          "Content-type": "application/json"
+      ).then (response) ->
+        response.data
+      , errorService.handle
+
     @getRegistration = getRegistration
     @getRoles        = getRoles
+    @submitReg       = submitReg
+    @getAllClubs     = getAllClubs
 
     undefined
   ]

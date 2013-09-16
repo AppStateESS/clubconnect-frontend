@@ -1,0 +1,52 @@
+<h2>Organization History</h2>
+
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2">
+
+    <!-- Shown before the user does anything if there is no registration.parent -->
+    <div data-ng-show="historystate != 'continuing-committed' && historystate != 'new-committed'">
+      <p>Has your organization existed on campus before this year?</p>
+      <p>
+        <a class="btn btn-large btn-primary" href="javascript:void(0)" data-ng-click="historystate = 'continuing'">Yes</a>
+        <a class="btn btn-large btn-primary" href="javascript:void(0)" data-ng-click="historystate = 'new'">No</a>
+      </p>
+    </div>
+
+    <!-- Shown if they have selected a parent club but not committed -->
+    <div data-ng-show="historystate == 'continuing'">
+      <p>Please search for your club to continue registration.</p>
+      <div class="input-group">
+        <input autocomplete="off" type="text" id="oldname" class="form-control" placeholder="Type here to search" data-ng-model="parent.id" data-typeahead="club.id as club.fullname for club in sdrdata.clubs | filter:$viewValue | limitTo:20">
+        <span class="input-group-btn">
+          <a href="javascript:void(0)" class="btn btn-primary" data-ng-click="commitExisting()">Confirm</a>
+        </span>
+      </div>
+      <p class="help-block">Try searching for the full name as well as any acronyms.</p>
+    </div>
+
+    <!-- Shown if they have selected that it is a new club but not committed -->
+    <div data-ng-show="historystate == 'new' || historystate == 'new-committed'">
+      <p>You are registering a new organization.  Please be aware that you should have already met with Club Council before filling out this form.</p>
+      <span data-ng-show="historystate == 'new'">
+        <a href="javascript:void(0)" class="btn btn-primary" data-ng-click="commitNew()">Confirm</a>
+      </span>
+      <span data-ng-show="historystate == 'new-committed'">
+        <a href="javascript:void(0)" class="btn btn-success" data-ng-click="historystate = 'new'">Undo</a>
+      </span>
+    </div>
+
+    <!-- Shown after a historical club is selected and confirmed -->
+    <div data-ng-show="historystate == 'continuing-committed'">
+      <p>You are re-registering for an existing organization named <strong>{{parent}}</strong>.</p>
+        <a href="javascript:void(0)" class="btn btn-success" data-ng-click="historystate = 'continuing'">Undo</a>
+      </div>
+    </div>
+
+    <div class="row" data-ng-show="historystate != 'new-committed' && historystate != 'continuing-committed'">
+      <div class="col-lg-10 col-lg-offset-2 col-md-10 col-md-offset-2">
+        <p class="help-block">The rest of the form will show after you complete this section.</p>
+      </div>
+    </div>
+
+  </div>
+</div>

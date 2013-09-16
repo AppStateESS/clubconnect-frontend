@@ -8,7 +8,8 @@ angular.module('ClubConnectApp')
       cols: '@'
       radio: '='
       model: '=ngModel'
-    template: '<div class="row"><div ng-repeat="group in chunkedTags" class="col-lg-{{12 / cols}}"><ul class="nav nav-pills nav-stacked tagselect"><li ng-repeat="tag in group" ng-class="isSelected(tag) && \'active\' || \'\'"><a href="javascript:void(0)" ng-click="tagClicked(tag)">{{tag.name}}</a></li></ul></div></div>'
+    replace: true
+    template: '<div class="row"><div ng-repeat="group in chunkedTags" class="col-lg-{{12 / cols || 12}}"><ul class="nav nav-pills nav-stacked tagselect"><li ng-repeat="tag in group" ng-class="isSelected(tag) && \'active\' || \'\'"><a href="javascript:void(0)" ng-click="tagClicked(tag)">{{tag.name}}</a></li></ul></div></div>'
     link: (scope, elm, attrs, ctrl) ->
 
       scope.getVal = (tag) ->
@@ -78,13 +79,12 @@ angular.module('ClubConnectApp')
         foundVal = ctrl.$viewValue
         if radio and scope.lastSelected
           if _.contains foundVal, scope.lastSelected
-            foundVal = scope.lastSelected
+            ctrl.$setViewValue scope.lastSelected
           else
-            foundVal = undefined
-        else
+            ctrl.$setViewValue undefined
+        else if not radio
           if foundVal
-            foundVal = [foundVal]
-        ctrl.$setViewValue foundVal
+            ctrl.$setViewValue [foundVal]
         undefined
 
       scope.isSelected = (tag) ->

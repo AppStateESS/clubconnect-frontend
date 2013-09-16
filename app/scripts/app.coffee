@@ -1,7 +1,10 @@
 'use strict'
 
-angular.module('ClubConnectApp', ['ui.bootstrap'])
-  .config ['$routeProvider', ($routeProvider) ->
+angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute'])
+  .config ['$routeProvider', '$httpProvider', ($routeProvider, $httpProvider) ->
+
+    $httpProvider.defaults.useXDomain = true
+
     $routeProvider
       # Default
       .when '/',
@@ -10,11 +13,23 @@ angular.module('ClubConnectApp', ['ui.bootstrap'])
 
       # Perspectives
       .when '/clubs',
-        templateUrl: 'views/clubdirectory.html'
+        templateUrl: 'views/ClubDirectory.html'
         controller: 'ClubDirectoryCtrl'
       .when '/registration',
-        templateUrl: 'views/clubregistration.html'
+        templateUrl: 'views/RegistrationList.html'
+        controller: 'RegistrationListCtrl'
+      .when '/registration/:regid',
+        templateUrl: 'views/ClubRegistration.html'
         controller: 'ClubRegistrationCtrl'
+      .when '/people',
+        templateUrl: 'views/People.html'
+        controller: 'PeopleCtrl'
+      .when '/reg/:regid',
+        templateUrl: 'views/ProcessRegistration.html'
+        controller: 'ProcessRegistrationCtrl'
+      .when '/registrations',
+        templateUrl: 'views/RegistrationList.html'
+        controller: 'RegistrationListCtrl'
 
       # Directives
       .when '/dirdemo/tagselect',
@@ -23,9 +38,6 @@ angular.module('ClubConnectApp', ['ui.bootstrap'])
       .when '/dirdemo/clubdirectory',
         templateUrl: 'views/directive-clubdirectory.html'
         controller: 'DirectiveDemoClubDirectoryCtrl'
-      .when '/dirdemo/personselector',
-        templateUrl: 'views/directive-personselector.html'
-        controller: 'DirectiveDemoPersonSelectorCtrl'
 
       # Otherwise...
       .otherwise

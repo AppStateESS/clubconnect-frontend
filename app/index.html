@@ -15,8 +15,6 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
 
-    <link rel="stylesheet" href="bower_components/bootstrap/less/bootstrap.less">
-
     <script src="bower_components/jquery/jquery.js"></script>
     <script type="text/javascript">
       CKEDITOR_BASEPATH = '/bower_components/ckeditor-releases/';
@@ -59,27 +57,6 @@
 
     <script src="bower_components/angular/angular.js"></script>
 
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/directives/tagSelect.js"></script>
-    <script src="scripts/directives/clubDirectory.js"></script>
-    <script src="scripts/directives/personSelector.js"></script>
-    <script src="scripts/directives/horizFormEl.js"></script>
-    <script src="scripts/directives/ckeditor.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/DirectiveDemoTagSelect.js"></script>
-    <script src="scripts/controllers/DirectiveDemoClubDirectory.js"></script>
-    <script src="scripts/controllers/ClubDirectory.js"></script>
-    <script src="scripts/controllers/ClubRegistration.js"></script>
-    <script src="scripts/controllers/ClubRegistrationHistory.js"></script>
-    <script src="scripts/controllers/DirectiveDemoPersonSelector.js"></script>
-    <script src="scripts/services/clubService.js"></script>
-    <script src="scripts/services/tagService.js"></script>
-    <script src="scripts/services/personProvider.js"></script>
-    <script src="scripts/services/errorService.js"></script>
-    <script src="scripts/filters/SelectedTagsFilter.js"></script>
-    <!-- endbuild -->
-
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/ckeditor-releases/ckeditor.js"></script>
@@ -93,38 +70,78 @@
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
         <script src="bower_components/angular-underscore/angular-underscore.js"></script>
         <script src="bower_components/angular-ui/build/angular-ui.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
         <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/directives/tagSelect.js"></script>
+    <script src="scripts/directives/clubDirectory.js"></script>
+    <script src="scripts/directives/personSelector.js"></script>
+    <script src="scripts/directives/ckeditor.js"></script>
+    <script src="scripts/directives/formGroup.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/DirectiveDemoTagSelect.js"></script>
+    <script src="scripts/controllers/DirectiveDemoClubDirectory.js"></script>
+    <script src="scripts/controllers/ClubDirectory.js"></script>
+    <script src="scripts/controllers/ClubRegistration.js"></script>
+    <script src="scripts/controllers/People.js"></script>
+    <script src="scripts/controllers/RegistrationList.js"></script>
+    <script src="scripts/services/clubService.js"></script>
+    <script src="scripts/services/tagService.js"></script>
+    <script src="scripts/services/personService.js"></script>
+    <script src="scripts/services/errorService.js"></script>
+    <script src="scripts/services/registrationApi.js"></script>
+    <script src="scripts/services/officerRequestApi.js"></script>
+    <script src="scripts/services/userApi.js"></script>
+    <script src="scripts/filters/SelectedTagsFilter.js"></script>
+    <!-- endbuild -->
 
         <script type="text/javascript">
           (function() {
             baseUrl = 'https://r6test.ess.appstate.edu/sdr173/sdr/api/';
             jsonp = '?callback=JSON_CALLBACK';
 
-            angular.module('ClubConnectApp').factory('makeSearchUrl', function() {
-              return function(search) {
-                if(search) {
-                  return baseUrl + 'regclubs' + jsonp + '&search=' + search
-                } else {
-                  return baseUrl + 'regclubs' + jsonp
-                }
+            angular.module('ClubConnectApp')
+            .config(function(registrationApiProvider) {
+              registrationApiProvider.setUri(baseUrl + 'registration/:registration_id');
+            })
+            .config(function(officerRequestApiProvider) {
+              officerRequestApiProvider.setUri(baseUrl + 'offreq/:officer_request_id');
+            })
+            .config(function(userApiProvider) {
+              userApiProvider.setUri(baseUrl + 'user');
+            })
+
+            .factory('sdrConfig', function() {
+              return {
+                makeSearchUrl: function(search) {
+                  if(search) {
+                    return baseUrl + 'regclubs' + jsonp + '&search=' + search;
+                  } else {
+                    return baseUrl + 'regclubs' + jsonp;
+                  }
+                },
+                makeRegUrl: function(search) {
+                  return baseUrl + 'oldreg' + jsonp + '&search=' + search;
+                },
+                makeRolesUrl: function() {
+                  return baseUrl + 'getroles' + jsonp;
+                },
+                makeRegSubmitUrl: function() {
+                  return null;
+                },
+                makePersonSearchUrl: function() {
+                  return baseUrl + 'people' + jsonp + '&search=' + search;
+                },
+                makeRegListUrl: function() {
+                  return baseUrl + 'registrations' + jsonp;
+                },
+                clubRegUrl: baseUrl + 'registration',
+                ckeditorCss: 'styles/main.css',
+                userType: 'admin'
               };
             });
-            angular.module('ClubConnectApp').factory('makeRegUrl', function() {
-              return function(search) {
-                return baseUrl + 'oldreg' + jsonp + '&search=' + search
-              };
-            });
-            angular.module('ClubConnectApp').factory('makeRolesUrl', function() {
-              return function() {
-                return baseUrl + 'getroles' + jsonp
-              };
-            });
-            angular.module('ClubConnectApp').factory('makeRegSubmitUrl', function() {
-              return function(search) {
-                return null
-              };
-            });
-            angular.module('ClubConnectApp').value('ckeditorCss', 'styles/main.css');
           })();
     </script>
 </body>

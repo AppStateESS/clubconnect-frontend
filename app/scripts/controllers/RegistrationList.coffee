@@ -37,6 +37,7 @@ angular.module('ClubConnectApp')
       else if not getState reg, 'Approved'
         'CSIL'
       else if not getState reg, 'Certified'
+
         if getState reg, 'PresCertified'
           'Advisor'
         else if getState reg, 'AdvCertified'

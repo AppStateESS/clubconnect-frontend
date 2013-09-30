@@ -131,7 +131,7 @@
                 makeRegSubmitUrl: function() {
                   return null;
                 },
-                makePersonSearchUrl: function() {
+                makePersonSearchUrl: function(search) {
                   return baseUrl + 'people' + jsonp + '&search=' + search;
                 },
                 makeRegListUrl: function() {
@@ -139,7 +139,8 @@
                 },
                 clubRegUrl: baseUrl + 'registration',
                 ckeditorCss: 'styles/main.css',
-                userType: 'admin'
+                userType: 'admin',
+                registrationId: 1098
               };
             });
           })();

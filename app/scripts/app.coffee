@@ -4,6 +4,7 @@ angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute'])
   .config ['$routeProvider', '$httpProvider', ($routeProvider, $httpProvider) ->
 
     $httpProvider.defaults.useXDomain = true
+    $httpProvider.defaults.withCredentials = true
 
     $routeProvider
       # Default

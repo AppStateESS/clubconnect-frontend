@@ -6,6 +6,9 @@ angular.module('ClubConnectApp')
     link: (scope, element, attrs) ->
       form = $(element.parents('form')[0]).attr 'name'
 
+      if not form
+        return
+
       isButton = ($input) ->
         $input.attr('type') is 'submit' or $input.attr('type') is 'button' or $input.is 'button'
 

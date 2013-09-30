@@ -22,8 +22,10 @@
       <tr class="cursor-pointer" data-ng-repeat="person in results | orderBy:'fullname'" data-ng-click="personRowClicked(person.url.default)">
         <td>
           <a href="{{person.url.default}}">{{person.fullname}}</a>
-          <span class="label label-info" data-ng-show="person.student">Student</span>
-          <span class="label label-warning" data-ng-show="person.facstaff">Fac/Staff</span>
+          <div class="pull-right">
+            <span class="label label-info" data-ng-show="person.student">Student</span>
+            <span class="label label-warning" data-ng-show="person.facstaff">Fac/Staff</span>
+          </div>
         </td>
       </tr>
     </table>

@@ -14,6 +14,10 @@ angular.module('ClubConnectApp')
           params:
             officer_request_id: '@officer_request_id'
             callback: 'JSON_CALLBACK'
+        update:
+          method: 'POST',
+          params:
+            officer_request_id: '@officer_request_id'
     ]
 
     undefined

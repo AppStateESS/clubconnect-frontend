@@ -19,6 +19,10 @@ angular.module('ClubConnectApp')
           isArray: true
           params:
             callback: 'JSON_CALLBACK'
+        update:
+          method: 'POST'
+          params:
+            registration_id: '@registration_id'
     ]
 
     undefined

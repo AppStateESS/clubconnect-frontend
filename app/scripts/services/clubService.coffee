@@ -10,13 +10,6 @@ angular.module('ClubConnectApp')
           response.data
         , errorService.handle
 
-    getOldRegistration = (search) ->
-      $http
-        .jsonp(sdrConfig.makeRegUrl(search))
-        .then (response) ->
-          response.data
-        , errorService.handle
-
     getRoles = () ->
       $http
         .jsonp(sdrConfig.makeRolesUrl())
@@ -48,26 +41,15 @@ angular.module('ClubConnectApp')
         reg.presCertified = 'data error please contact ESS'
       else
 
-    getRegistrationList = () ->
-      $http
-        .jsonp(sdrConfig.makeRegListUrl())
-        .then (response) ->
-          for reg in response.data
-            fixReg reg
-          response.data
-        , errorService.handle
-
     @user = $resource sdrConfig.userUrl, {},
       get:
         method: 'JSONP'
         params:
           callback: 'JSON_CALLBACK'
     
-    @getOldRegistration  = getOldRegistration
     @getRoles            = getRoles
     @submitReg           = submitReg
     @getAllClubs         = getAllClubs
-    @getRegistrationList = getRegistrationList
 
     undefined
   ]

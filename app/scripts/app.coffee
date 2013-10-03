@@ -31,6 +31,9 @@ angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute'])
       .when '/registrations',
         templateUrl: 'views/RegistrationList.html'
         controller: 'RegistrationListCtrl'
+      .when '/user',
+        templateUrl: 'views/UserOverview.html'
+        controller: 'UserOverviewCtrl'
 
       # Directives
       .when '/dirdemo/tagselect',

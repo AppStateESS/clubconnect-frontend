@@ -34,13 +34,6 @@ angular.module('ClubConnectApp')
       else
         val.split(' ')[0]
 
-    fixReg = (reg) ->
-      reg.created       = fromPgDate reg.created
-      reg.approved      = fromPgDate reg.approved
-      if not reg.president
-        reg.presCertified = 'data error please contact ESS'
-      else
-
     @user = $resource sdrConfig.userUrl, {},
       get:
         method: 'JSONP'

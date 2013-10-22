@@ -10,7 +10,7 @@ angular.module('ClubConnectApp')
       window.location = href
 
     $scope.regOrder = (element) ->
-      [element.created, element.term, 
+      [element.created, element.fullname
         (if element.approved then 'a' else 'b') +
         (if element.presCertified && element.advCertified then 'a' else 'b')]
 
@@ -46,6 +46,12 @@ angular.module('ClubConnectApp')
           'Pres/Adv'
       else
         ''
+    $scope.search =
+      string: ''
+      showComplete: false
+
+    $scope.certifiedFilter = (element) ->
+      $scope.search.showComplete or element.state isnt 'Certified'
 
     $scope.pr =
       selected: false

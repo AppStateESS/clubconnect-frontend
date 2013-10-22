@@ -15,7 +15,8 @@
     "angular-ui": "latest",
     "bootstrap": "latest",
     "ckeditor-releases": "git://github.com/ckeditor/ckeditor-releases.git#c9332c792eea936d61a475b063080dee3216178a",
-    "font-awesome": "~3.2.1"
+    "font-awesome": "~3.2.1",
+    "angular-ui-utils": "~0.0.4"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

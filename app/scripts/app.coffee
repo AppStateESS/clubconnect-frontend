@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute'])
+angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute', 'ui.scrollfix'])
   .config ['$routeProvider', '$httpProvider', ($routeProvider, $httpProvider) ->
 
     $httpProvider.defaults.useXDomain = true

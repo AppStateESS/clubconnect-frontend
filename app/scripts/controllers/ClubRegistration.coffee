@@ -31,6 +31,15 @@ angular.module('ClubConnectApp')
       regclub = getRegIdByOrgId(oid)
       regclub and !!regclub.registration_id
 
+    $scope.fromPgDate = (val) ->
+      if not val
+        val
+      else
+        val.split(' ')[0]
+
+    $scope.officersCertified = () ->
+      true
+
     $scope.loadOldData = () ->
       if not $scope.canLoadOldData()
         return false
@@ -126,6 +135,14 @@ angular.module('ClubConnectApp')
 
     $scope.undoRemoveOfficer = (key) ->
       $scope.officerRequest.officers.push $scope.removedOfficers.splice(key,1)[0]
+
+    $scope.fulfilledClass = (officer) ->
+      if officer.role_id not in [53,34] then 'default' else
+        if officer.fulfilled then 'success' else 'danger'
+
+    $scope.fulfilledText = (officer) ->
+      if officer.role_id not in [53,34] then 'N/A' else
+        if officer.fulfilled then officer.fulfilled.split(' ')[0] else 'Not Certified'
 
     $scope.submit = (state) ->
       $scope.loading = true

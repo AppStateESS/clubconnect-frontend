@@ -15,7 +15,7 @@
     "grunt-contrib-htmlmin": "latest",
     "grunt-contrib-imagemin": "latest",
     "grunt-contrib-watch": "latest",
-    "grunt-usemin": "latest1",
+    "grunt-usemin": "latest",
     "grunt-rev": "latest",
     "grunt-karma": "latest",
     "grunt-open": "latest",

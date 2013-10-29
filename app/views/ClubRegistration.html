@@ -166,7 +166,7 @@
                 </div>
               </td>
               <td data-ng-hide="officer.removed">
-                <select class="form-control" name="officerEmail" data-ng-model="officer.role_id" data-ng-options="role.id as role.title for role in sdrdata.roles" placeholder="Officer Position" required></select>
+                <select class="form-control" name="officerEmail" data-ng-model="officer.role_id" data-ng-options="role.id as role.title for role in sdrdata.roles | filter:selectRoles" placeholder="Officer Position" required></select>
               </td>
               <td data-ng-hide="officer.removed || officer.role_id == 34 || officer.role_id == 53">
                 <div class="btn-group">
@@ -287,6 +287,17 @@
             <div class="panel-body">
               <p>All of the appropriate officers have certified, but due to problems with registration this year, the club did not automatically get registered.  Click this button to finalize registration.</p>
               <button class="btn btn-lg btn-success" data-ng-click="submit('Certified')"><i class="icon-check"></i> Certify Registration</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">Save Changes</h4>
+            </div>
+            <div class="panel-body">
+              <p>Save changes WITHOUT CERTIFYING.  NOTE: No emails will be sent, so if you change an email address above, you will need to contact them manually.</p>
+              <button class="btn btn-lg btn-primary" data-ng-click="submit('Approved')"><i class="icon-save"></i> Save Changes</button>
             </div>
           </div>
         </div>

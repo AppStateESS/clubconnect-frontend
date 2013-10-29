@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('ClubConnectApp')
-  .controller 'ClubRegistrationCtrl', ['$scope', 'tagService', 'clubService', 'registrationApi', 'officerRequestApi', 'userApi', 'sdrConfig', ($scope, tagService, clubService, registrationApi, officerRequestApi, userApi, sdrConfig) ->
+  .controller 'ClubRegistrationCtrl', ['$scope', 'tagService', 'clubService', 'registrationApi', 'officerRequestApi', 'userApi', 'roles', 'sdrConfig', ($scope, tagService, clubService, registrationApi, officerRequestApi, userApi, roles, sdrConfig) ->
     $scope.sdrdata         = {}
     $scope.officerRequest  =
       officers: []
@@ -85,12 +85,11 @@ angular.module('ClubConnectApp')
       .then (tags) ->
         $scope.sdrdata.monthTags = tags
 
-    clubService.getRoles()
-      .then (roles) ->
-        $scope.sdrdata.roles = roles
-        $scope.sdrdata.roleLookup = {}
-        for role in roles
-          $scope.sdrdata.roleLookup[role.id] = role.title
+    $scope.sdrdata.roles = roles
+
+    $scope.selectRoles = (val) -> val.rank > 0
+
+    $scope.certificationRoles = (role.id for role in roles when role.rank > 2)
 
     $scope.ckeditorCss = sdrConfig.ckeditorCss
             
@@ -137,11 +136,11 @@ angular.module('ClubConnectApp')
       $scope.officerRequest.officers.push $scope.removedOfficers.splice(key,1)[0]
 
     $scope.fulfilledClass = (officer) ->
-      if officer.role_id not in [53,34] then 'default' else
+      if officer.role_id not in $scope.certificationRoles then 'default' else
         if officer.fulfilled then 'success' else 'danger'
 
     $scope.fulfilledText = (officer) ->
-      if officer.role_id not in [53,34] then 'N/A' else
+      if officer.role_id not in $scope.certificationRoles then 'N/A' else
         if officer.fulfilled then officer.fulfilled.split(' ')[0] else 'Not Certified'
 
     $scope.submit = (state) ->
@@ -150,7 +149,7 @@ angular.module('ClubConnectApp')
 
       # Ensure that President and Advisor have Administrator
       for officer in $scope.officerRequest.officers
-        officer.admin = 1 if officer.role_id in [34, 53]
+        officer.admin = 1 if officer.role_id in $scope.certificationRoles
 
       errorHandler = (message) ->
         () ->

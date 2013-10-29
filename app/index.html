@@ -96,6 +96,7 @@
     <script src="scripts/services/registrationApi.js"></script>
     <script src="scripts/services/officerRequestApi.js"></script>
     <script src="scripts/services/userApi.js"></script>
+    <script src="scripts/services/roles.js"></script>
     <script src="scripts/filters/SelectedTagsFilter.js"></script>
     <!-- endbuild -->
 
@@ -113,6 +114,9 @@
             })
             .config(function(userApiProvider) {
               userApiProvider.setUri(baseUrl + 'user');
+            })
+            .config(function(rolesProvider) {
+              rolesProvider.setRoles([{"id":53,"title":"Advisor","rank":10},{"id":1,"title":"Alternate","rank":0},{"id":2,"title":"Business Staff","rank":0},{"id":3,"title":"Cabinet Member","rank":1},{"id":4,"title":"Captain","rank":3},{"id":5,"title":"Cast","rank":0},{"id":6,"title":"Chair Person","rank":3},{"id":7,"title":"Choreographer","rank":0},{"id":8,"title":"Co-Advisor","rank":10},{"id":9,"title":"Committee Chair","rank":1},{"id":10,"title":"Committee Member","rank":1},{"id":11,"title":"Coordinator","rank":2},{"id":52,"title":"Co-President","rank":3},{"id":12,"title":"Court Officer","rank":0},{"id":13,"title":"Designer","rank":0},{"id":14,"title":"Desk Assistant","rank":0},{"id":15,"title":"Director","rank":3},{"id":16,"title":"Disc Jockey","rank":0},{"id":17,"title":"Editor","rank":0},{"id":18,"title":"Editor-in-Chief","rank":3},{"id":19,"title":"Historian","rank":0},{"id":20,"title":"Leader","rank":3},{"id":21,"title":"Manager","rank":3},{"id":22,"title":"Managing Editor","rank":0},{"id":32,"title":"New Member","rank":-1},{"id":24,"title":"Officer","rank":1},{"id":25,"title":"Parliamentarian","rank":0},{"id":26,"title":"Participant","rank":0},{"id":27,"title":"Peer Counselor","rank":0},{"id":28,"title":"Peer Mentor","rank":0},{"id":29,"title":"Phase I","rank":0},{"id":30,"title":"Phase II","rank":0},{"id":31,"title":"Photographer","rank":0},{"id":33,"title":"Presenter","rank":0},{"id":34,"title":"President","rank":3},{"id":35,"title":"Production Staff","rank":0},{"id":36,"title":"Program Development Assistant","rank":0},{"id":51,"title":"Publicity Chair","rank":0},{"id":37,"title":"R.A.","rank":0},{"id":38,"title":"Recipient","rank":0},{"id":39,"title":"Representative","rank":0},{"id":40,"title":"Rush Counselor","rank":0},{"id":41,"title":"Secretary","rank":1},{"id":42,"title":"Section Leader","rank":0},{"id":43,"title":"Senator","rank":0},{"id":44,"title":"Station Manager","rank":3},{"id":54,"title":"Student Guide","rank":1},{"id":45,"title":"Treasurer","rank":1},{"id":46,"title":"Tutor","rank":0},{"id":47,"title":"Vice President","rank":2},{"id":48,"title":"Volunteer","rank":0},{"id":49,"title":"Webmaster","rank":1},{"id":50,"title":"Writer","rank":0}]);
             })
 
             .factory('sdrConfig', function() {

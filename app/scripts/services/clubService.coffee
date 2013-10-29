@@ -10,13 +10,6 @@ angular.module('ClubConnectApp')
           response.data
         , errorService.handle
 
-    getRoles = () ->
-      $http
-        .jsonp(sdrConfig.makeRolesUrl())
-        .then (response) ->
-          response.data
-        , errorService.handle
-
     submitReg = (data) ->
       $http(
         method: 'POST'
@@ -40,7 +33,6 @@ angular.module('ClubConnectApp')
         params:
           callback: 'JSON_CALLBACK'
     
-    @getRoles            = getRoles
     @submitReg           = submitReg
     @getAllClubs         = getAllClubs
 

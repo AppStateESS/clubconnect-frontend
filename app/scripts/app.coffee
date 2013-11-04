@@ -34,6 +34,9 @@ angular.module('ClubConnectApp', ['ui.bootstrap', 'ngResource', 'ngRoute', 'ui.s
       .when '/user',
         templateUrl: 'views/UserOverview.html'
         controller: 'UserOverviewCtrl'
+      .when '/overview',
+        templateUrl: 'views/AdmiOnverview.html'
+        controller: 'AdminOverviewCtrl'
 
       # Directives
       .when '/dirdemo/tagselect',

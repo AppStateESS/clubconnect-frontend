@@ -13,7 +13,7 @@ angular.module('ClubConnectApp')
     $scope.user = userApi.get()
 
     $scope.forClubDirectory = (element) ->
-      (element.term == 201340 or element.term == 201310 or element.term == 201240) &&
+      (element.term == 201410 or element.term == 201340 or element.term == 201310 or element.term == 201240) &&
         (element.student_managed == 1)
 
     $scope.orderClubDirectory = (element) ->
